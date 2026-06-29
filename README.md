@@ -23,11 +23,12 @@ WPG-MoE is the public implementation of our weak-prior-guided dense MoE model fo
 - Dense MoE inference: every expert is evaluated, then fused through a learned gate.
 - Weak-prior-guided training losses for routing and evidence selection.
 - Warm-start and joint-training entrypoints for the released experiment templates.
-- Small visualization assets for the pipeline, evidence heterogeneity, and gate behavior.
+- Routing diagnostics for in-domain and cross-dataset transfer.
 
 <p align="center">
-  <img src="assets/heterogeneity.png" width="48%" alt="Evidence heterogeneity">
-  <img src="assets/gate_weights.png" width="40%" alt="Gate weights">
+  <img src="assets/gate_transfer_stacks.png" width="94%" alt="WPG-MoE expert gate allocation across train-test dataset pairs">
+  <br>
+  <sub>Average dense-MoE gate allocation across source and target datasets. The model keeps all experts active instead of choosing one hard route.</sub>
 </p>
 
 ## Repository layout
@@ -77,28 +78,24 @@ python scripts/train_stage_de.py \
   --device cuda:0
 ```
 
-## Expected data format
+## Data access and privacy
 
-Training uses user-level JSONL. Each line should represent one user and include the fields consumed by `src/training/dataset.py`, including:
+The paper uses three user-level social-media datasets: SWDD, the Twitter depression dataset, and eRisk25. Each source is normalized into timestamped user histories, then converted into WPG-MoE training samples. Source-training users may include offline weak-prior evidence; validation, test, transfer-target, and deployment-style users rely on deployable screening and the shared backbone.
 
-```text
-user_id
-label
-risk_posts_template
-risk_posts_llm
-episode_blocks
-global_history_posts
-global_stats
-priors
-crisis_score
-```
+The unified 80/10/10 split is for controlled method comparison. It does not replace dataset-specific leaderboards or the official eRisk early-detection protocol.
 
-The formatter is tolerant of missing optional weak-prior fields and fills conservative defaults where possible. The datasets themselves are not redistributed with this repository.
+We do not redistribute raw posts, normalized user histories, LLM-derived evidence labels, or annotation packets. These records can contain mental-health self-disclosure, crisis language, and other sensitive text. Public release would create avoidable privacy risk and may conflict with dataset agreements or platform terms.
+
+| Need | Route |
+| --- | --- |
+| Original datasets | Apply through the official dataset providers. eRisk25, for example, requires a research-only user agreement and email request on the [official eRisk page](https://erisk.irlab.org/eRisk2025.html). |
+| WPG-MoE processed samples | Contact the authors with your affiliation, intended use, and evidence that you already have permission to use the source data. |
+| Code-only experiments | Use your own authorized user-level data and point the YAML paths in `configs/` to those files. |
 
 ## Notes
 
 - The release is intended for research reproduction and follow-up experiments.
-- Checkpoints, private datasets, baseline runs, ablation scripts, template-screening code, and offline scoring code are excluded.
+- Checkpoints, private datasets, baseline runs, ablation scripts, and offline scoring code are excluded.
 - The default configs assume a Qwen3.5-2B style backbone path. Replace it with a path available on your machine.
 
 ## Citation
