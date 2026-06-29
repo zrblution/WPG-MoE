@@ -25,20 +25,12 @@ WPG-MoE is the public implementation of our weak-prior-guided dense MoE model fo
 - Warm-start and joint-training entrypoints for the released experiment templates.
 - Routing diagnostics for in-domain and cross-dataset transfer.
 
-<table>
-  <tr>
-    <td width="58%" align="center" valign="top">
-      <img src="assets/gate_transfer_stacks.png" width="100%" alt="WPG-MoE expert gate allocation across train-test dataset pairs">
-      <br>
-      <sub>Source-target gate allocation.</sub>
-    </td>
-    <td width="42%" align="center" valign="top">
-      <img src="assets/gate_weights_nested_donut.png" width="100%" alt="Training-time WPG-MoE expert routing by dataset">
-      <br>
-      <sub>Training-time expert routing by dataset.</sub>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="assets/gate_transfer_stacks.png" width="53%" alt="WPG-MoE expert gate allocation across train-test dataset pairs"> <img src="assets/gate_weights_nested_donut_readme.png" width="45%" alt="Training-time WPG-MoE expert routing by dataset">
+</p>
+<p align="center">
+  <sub>Left: source-target expert allocation. Right: training-time expert routing by dataset.</sub>
+</p>
 
 ## Repository layout
 
