@@ -1,0 +1,12 @@
+base_config: default.yaml
+
+dataset_name: erisk25
+language: en
+model_name: /path/to/Qwen3.5-2B
+
+train_path: data/user_samples/erisk_train.jsonl
+val_path: data/user_samples/erisk_val.jsonl
+test_path: data/user_samples/erisk_test.jsonl
+warmstart_save_path: outputs/models/erisk_qwen35_stage_de_fullparam_warmstart.pt
+save_path: outputs/models/erisk_qwen35_stage_de_fullparam_final.pt
+log_path: outputs/models/erisk_qwen35_stage_de_fullparam_training_log.json

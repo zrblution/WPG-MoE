@@ -1,0 +1,71 @@
+dataset_name: swdd
+language: zh
+
+# Replace this with your local backbone path or Hugging Face identifier.
+model_name: /path/to/Qwen3.5-2B
+backbone_model_class: causal_lm
+trust_remote_code: true
+pooling_strategy: auto
+torch_dtype: bfloat16
+gradient_checkpointing: true
+use_fast_tokenizer: false
+
+max_post_tokens: 192
+encoder_forward_batch_size: 96
+num_post_markers: 2048
+max_risk_posts: 32
+global_history_max_per_segment: 12
+
+num_experts: 5
+expert_hidden: 512
+expert_output: 256
+gate_hidden: 256
+stats_dim: 5
+meta_dim: 10
+evidence_top_k:
+evidence_ratio: 0.12
+evidence_min_k: 4
+evidence_max_k: 10
+evidence_score_threshold: 0.55
+
+warm_start_epochs: 3
+warm_start_lr: 1.0e-4
+warm_start_batch_size: 64
+warm_start_use_augmentation: true
+warm_start_force_risk_source: llm
+warm_start_top_ratio: 0.2
+warm_start_expert3_ratio: 0.3
+warm_start_expert4_ratio: 0.2
+warm_start_expert4_normal_to_depressed_ratio: 9.0
+
+max_epochs: 3
+batch_size: 8
+freeze_encoder_epochs: 0
+patience: 5
+lr_encoder: 1.0e-5
+lr_head: 1.0e-4
+weight_decay: 0.01
+pos_weight: 1.0
+decision_threshold: 0.5
+tune_decision_threshold: true
+
+alpha: 0.3
+beta: 0.2
+gamma: 0.15
+delta_init: 0.1
+delta_min: 0.02
+
+p_risk_swap: 0.5
+p_meta_drop: 0.5
+p_block_drop: 0.4
+p_prior_drop: 0.3
+p_post_drop: 0.3
+template_metadata_in_text: false
+template_metadata_include_dims: false
+
+train_path: data/user_samples/swdd_train.jsonl
+val_path: data/user_samples/swdd_val.jsonl
+test_path: data/user_samples/swdd_test.jsonl
+warmstart_save_path: outputs/models/swdd_wpg_moe_warmstart.pt
+save_path: outputs/models/swdd_wpg_moe_final.pt
+log_path: outputs/models/swdd_wpg_moe_training_log.json

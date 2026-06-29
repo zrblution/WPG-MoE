@@ -1,0 +1,12 @@
+base_config: default.yaml
+
+dataset_name: swdd
+language: zh
+model_name: /path/to/Qwen3.5-2B
+
+train_path: data/user_samples/swdd_train.jsonl
+val_path: data/user_samples/swdd_val.jsonl
+test_path: data/user_samples/swdd_test.jsonl
+warmstart_save_path: outputs/models/swdd_qwen35_stage_de_fullparam_warmstart.pt
+save_path: outputs/models/swdd_qwen35_stage_de_fullparam_final.pt
+log_path: outputs/models/swdd_qwen35_stage_de_fullparam_training_log.json

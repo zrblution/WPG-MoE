@@ -1,0 +1,12 @@
+base_config: default.yaml
+
+dataset_name: twitter
+language: en
+model_name: /path/to/Qwen3.5-2B
+
+train_path: data/user_samples/twitter_train.jsonl
+val_path: data/user_samples/twitter_val.jsonl
+test_path: data/user_samples/twitter_test.jsonl
+warmstart_save_path: outputs/models/twitter_qwen35_stage_de_fullparam_warmstart.pt
+save_path: outputs/models/twitter_qwen35_stage_de_fullparam_final.pt
+log_path: outputs/models/twitter_qwen35_stage_de_fullparam_training_log.json
